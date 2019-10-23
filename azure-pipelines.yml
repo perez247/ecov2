@@ -18,10 +18,10 @@ variables:
   projectName: 'Eco Phase 2'
 
 stages:
-- stage: Build
+- stage: Develop Branch
   displayName: Build/Push Images for Development
   jobs:  
-  - job: Build
+  - job: Develop
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     timeoutInMinutes: 30
     displayName: Check if change is for develop branch
@@ -32,32 +32,10 @@ stages:
           docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
           docker push newecopeoplev1/frontend_dev
           docker push newecopeoplev1/backend_dev
-
-      # - task: Docker@2
-      #   displayName: Build frontend image
-      #   inputs:
-      #     command: build
-      #     dockerfile: './frontend/Dockerfile'
-      #     tags: '$(frontend)_dev'
-      # - task: Docker@2
-      #   displayName: Build backend image
-      #   inputs:
-      #     command: build
-      #     dockerfile: './backend/Dockerfile'
-      #     tags: '$(backend)_dev'
-            
-    #   displayName: Building frontend image
-    #   - script: 
-    #     docker build -t newecopeoplev1/frontend_dev ./frontend
-    # steps:
-    #   displayName: Building backend image
-    #   script: docker build -t newecopeoplev1/backend_dev ./backend
-      # docker build -t newecopeoplev1/backend_dev ./backend
-      # docker build -t newecopeoplev1/nginx_dev ./nginx
-- stage: Push
+- stage: Master Branch
   displayName: Build/Push images for Production
   jobs:
-  - job: Push
+  - job: Master
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: Checking if change is for master branch
     steps:
@@ -67,18 +45,3 @@ stages:
           docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
           docker push newecopeoplev1/frontend
           docker push newecopeoplev1/backend
-          # docker push newecopeoplev1/nginx_dev
-          # docker push newecopeoplev1/nginx_template_dev
-
-    # - task: Docker@2
-    #   inputs:
-    #     containerRegistry: 'Eco Development'
-    #     repository: 'frontend_dev'
-    #     command: 'push'
-    #     tags: 'latest'
-    # - task: Docker@2
-    #   inputs:
-    #     containerRegistry: 'Eco Development'
-    #     repository: 'backend_dev'
-    #     command: 'push'
-    #     tags: 'latest'
