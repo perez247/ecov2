@@ -2,28 +2,48 @@
 # Build a Docker image 
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 trigger:
-- master
+  batch: true
+  branches:
+    include:
+    - refs/heads/*
 
 resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  projectName: 'Eco Phase 2'
+  DOCKER_ID: $(DOCKER_ID)
 
 stages:
+condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 - stage: Build
-  displayName: Build image
+  displayName: Build images
   jobs:  
   - job: Build
+    timeoutInMinutes: 30
     displayName: Build
-    pool:
-      vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '**/Dockerfile'
-        tags: |
-          $(tag)
+      displayName: Build Images
+      - bash: |
+        docker build -t newecopeoplev1/frontend_dev ./frontend
+        docker build -t newecopeoplev1/backend_dev ./backend
+        docker build -t newecopeoplev1/nginx_dev ./nginx
+- stage: Push
+  displayName: Push images
+  jobs:
+  - job: Push
+    displayName: Push
+    steps:
+    - task: Docker@2
+      displayName: Pushing Images
+      - bash: |
+          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
+          docker push newecopeoplev1/frontend_dev
+          docker push newecopeoplev1/backend_dev
+          docker push newecopeoplev1/nginx_dev
+          docker push newecopeoplev1/nginx_template_dev

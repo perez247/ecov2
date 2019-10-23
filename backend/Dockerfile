@@ -33,8 +33,8 @@ COPY --from=build-env /app/Api/out .
 COPY --from=build-env /app/Api/botdetect.xml ./
 
 # Copy countries and states json files, locations
-RUN mkdir -p Persistence/data/locations
-COPY --from=build-env /app/Persistence/data/locations ./Persistence/data/locations
+RUN mkdir -p ../Persistence/data/locations
+COPY --from=build-env /app/Persistence/data/locations ../Persistence/data/locations
 
 ENTRYPOINT [ "dotnet","Api.dll"  ]
 
