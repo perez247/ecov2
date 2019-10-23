@@ -25,7 +25,7 @@ stages:
   - job: Build
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     timeoutInMinutes: 30
-    displayName: Build images
+    displayName: Build images for development
     steps:
       displayName: Building frontend image
       script: docker build -t newecopeoplev1/frontend_dev ./frontend
@@ -39,7 +39,7 @@ stages:
   jobs:
   - job: Push
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
-    displayName: Pushing images
+    displayName: Pushing images for development
     # steps:
     # - script: |
     #     docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
