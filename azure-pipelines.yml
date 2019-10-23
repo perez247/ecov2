@@ -19,7 +19,7 @@ variables:
   DOCKER_ID: $(DOCKER_ID)
 
 stages:
-condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+- condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 - stage: Build
   displayName: Build images
   jobs:  
