@@ -16,7 +16,6 @@ resources:
 
 variables:
   projectName: 'Eco Phase 2'
-  DOCKER_ID: $(DOCKER_ID)
 
 stages:
 - stage: Build
@@ -25,7 +24,7 @@ stages:
   - job: Build
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     timeoutInMinutes: 30
-    displayName: Build images for development
+    displayName: Check if change is for develop branch
     steps:
       - script: |
           docker build -t newecopeoplev1/frontend_dev ./frontend
@@ -60,7 +59,7 @@ stages:
   jobs:
   - job: Push
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    displayName: Pushing images for development
+    displayName: Checking if change is for master branch
     steps:
       - script: | 
           docker build -t newecopeoplev1/frontend ./frontend
