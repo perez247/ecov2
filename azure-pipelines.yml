@@ -17,12 +17,10 @@ resources:
 variables:
   projectName: 'Eco Phase 2'
   DOCKER_ID: $(DOCKER_ID)
-  frontend_tag: '$(DOCKER_ID)/frontend'
-  backend_tag: '$(DOCKER_ID)/backend'
 
 stages:
 - stage: Build
-  displayName: Build images
+  displayName: Build/Push Images for Development
   jobs:  
   - job: Build
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
@@ -32,6 +30,9 @@ stages:
       - script: |
           docker build -t newecopeoplev1/frontend_dev ./frontend
           docker build -t newecopeoplev1/backend_dev ./backend
+          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
+          docker push newecopeoplev1/frontend_dev
+          docker push newecopeoplev1/backend_dev
 
       # - task: Docker@2
       #   displayName: Build frontend image
@@ -55,16 +56,18 @@ stages:
       # docker build -t newecopeoplev1/backend_dev ./backend
       # docker build -t newecopeoplev1/nginx_dev ./nginx
 - stage: Push
-  displayName: Push images
+  displayName: Build/Push images for Production
   jobs:
   - job: Push
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: Pushing images for development
     steps:
       - script: | 
+          docker build -t newecopeoplev1/frontend ./frontend
+          docker build -t newecopeoplev1/backend ./backend
           docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
-          docker push newecopeoplev1/frontend_dev
-          docker push newecopeoplev1/backend_dev
+          docker push newecopeoplev1/frontend
+          docker push newecopeoplev1/backend
           # docker push newecopeoplev1/nginx_dev
           # docker push newecopeoplev1/nginx_template_dev
 
