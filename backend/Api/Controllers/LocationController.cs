@@ -17,7 +17,6 @@ namespace Api.Controllers
         /// </summary>
         /// <remarks>Good!</remarks>
         [HttpGet("get-countries")]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(CountriesDTO), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetCountries() {
             return Ok(await Mediator.Send(new GetCountriesCommand()));
@@ -29,7 +28,6 @@ namespace Api.Controllers
         /// </summary>
         /// <remarks>Good!</remarks>
         [HttpGet("get-states")]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(StateDTO), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetState([FromQuery] GetStateCommand command) {
             return Ok(await Mediator.Send(command));
