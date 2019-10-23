@@ -19,11 +19,11 @@ variables:
   DOCKER_ID: $(DOCKER_ID)
 
 stages:
-- condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 - stage: Build
   displayName: Build images
   jobs:  
   - job: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     timeoutInMinutes: 30
     displayName: Build
     steps:
@@ -37,6 +37,7 @@ stages:
   displayName: Push images
   jobs:
   - job: Push
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     displayName: Push
     steps:
     - task: Docker@2
