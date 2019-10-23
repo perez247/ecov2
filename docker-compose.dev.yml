@@ -2,13 +2,14 @@ version: "3.4"
 
 services:
 
-  mssql_image:
-    image: mcr.microsoft.com/mssql/server
-    environment:
-        SA_PASSWORD: "noPassword@247"
-        ACCEPT_EULA: "Y"
+  postgres_image:
+    image: postgres:11.5-alpine
     ports:
-      - "3200:1433"
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "root_user"
+      POSTGRES_PASSWORD: "root_password"
+      POSTGRES_DB: "app_db"
 
   backend:
     build:
@@ -28,9 +29,9 @@ services:
       - /app/Persistence/obj/
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DefaultConnection=server=mssql_image;Database=eco-appDb;user id=sa;password=noPassword@247;MultipleActiveResultSets=True
+      - DefaultConnection=host=postgres_image;port=5432;database=app_db;username=root_user;password=root_password
     depends_on:
-      - mssql_image
+      - postgres_image
     ports:
       - "5000:5000"
   

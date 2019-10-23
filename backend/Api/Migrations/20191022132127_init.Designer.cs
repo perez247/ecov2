@@ -2,24 +2,130 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Repository;
 
 namespace Api.Migrations
 {
     [DbContext(typeof(DefaultDataContext))]
-    [Migration("20190530210012_init")]
+    [Migration("20191022132127_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("Domain.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("CountryId");
+
+                    b.Property<int?>("CountryId1");
+
+                    b.Property<Guid>("StateId");
+
+                    b.Property<int?>("StateId1");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId1");
+
+                    b.HasIndex("StateId1");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Collection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Collections");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("TargetType")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TargetTypeId");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Contact", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email_1")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Email_2")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Phone_1")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Phone_2")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
 
             modelBuilder.Entity("Domain.Entities.CoreEntities.Country", b =>
                 {
@@ -42,8 +148,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Domain.Entities.CoreEntities.EcoEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
@@ -55,14 +160,25 @@ namespace Api.Migrations
             modelBuilder.Entity("Domain.Entities.CoreEntities.Ico", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.ToTable("Icos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.CoreEntities.PhotoType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PhotoTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.CoreEntities.State", b =>
@@ -72,7 +188,7 @@ namespace Api.Migrations
                     b.Property<int>("CountryId");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50);
+                        .HasMaxLength(60);
 
                     b.HasKey("Id");
 
@@ -84,8 +200,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Domain.Entities.CoreEntities.UnSDGGoal", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
@@ -94,28 +209,64 @@ namespace Api.Migrations
                     b.ToTable("UnSDGGoals");
                 });
 
+            modelBuilder.Entity("Domain.Entities.EcoDetails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("EcoEntityId");
+
+                    b.Property<int?>("IcoId");
+
+                    b.Property<string>("IcoOther")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
+
+                    b.Property<int?>("UnSDGGoalId");
+
+                    b.Property<string>("UnSDGGoalsOther")
+                        .HasMaxLength(500);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EcoEntityId");
+
+                    b.HasIndex("IcoId");
+
+                    b.HasIndex("UnSDGGoalId");
+
+                    b.ToTable("EcoDetails");
+                });
+
             modelBuilder.Entity("Domain.Entities.Idea", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AddressId");
+
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("Message")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(2000);
+                        .HasMaxLength(1000);
 
-                    b.Property<Guid?>("ProblemId");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<Guid?>("UserId");
+                    b.Property<Guid?>("TypeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProblemId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Ideas");
                 });
@@ -125,17 +276,65 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("HeadQuaters");
+                    b.Property<Guid?>("AddressId");
+
+                    b.Property<Guid?>("CollectionId");
+
+                    b.Property<Guid?>("ContactId");
+
+                    b.Property<Guid>("HeadQuaters");
 
                     b.Property<string>("Name");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("Type");
+
+                    b.Property<Guid?>("TypeId");
+
+                    b.Property<bool>("Verified");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("CollectionId");
+
+                    b.HasIndex("ContactId");
 
                     b.ToTable("OrganizationDetails");
+                });
+
+            modelBuilder.Entity("Domain.Entities.OrganizationRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("BranchId");
+
+                    b.Property<Guid>("HeadQuarterId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationRoles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.OrganizationTypeRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("OrganizationId");
+
+                    b.Property<Guid>("OrganizationRoleId");
+
+                    b.Property<string>("Type");
+
+                    b.Property<Guid>("TypeId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationTypeRoles");
                 });
 
             modelBuilder.Entity("Domain.Entities.Photo", b =>
@@ -145,20 +344,22 @@ namespace Api.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(2000);
-
-                    b.Property<Guid?>("ProblemId");
+                    b.Property<Guid?>("PhotoTypeId");
 
                     b.Property<string>("PublicId")
-                        .HasMaxLength(500);
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
 
                     b.Property<string>("Url")
-                        .HasMaxLength(500);
+                        .HasMaxLength(1000);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProblemId");
+                    b.HasIndex("PhotoTypeId");
 
                     b.ToTable("Photos");
                 });
@@ -168,7 +369,7 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CountryId");
+                    b.Property<Guid?>("AddressId");
 
                     b.Property<DateTime>("DateCreated");
 
@@ -176,35 +377,17 @@ namespace Api.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(2000);
+                        .HasMaxLength(1000);
 
-                    b.Property<int?>("EcoEntityId");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<int?>("IcoId");
-
-                    b.Property<string>("IcoOther");
-
-                    b.Property<int?>("StateId");
-
-                    b.Property<int?>("UnSDGGoalId");
-
-                    b.Property<string>("UnSDGGoalsOther");
-
-                    b.Property<Guid?>("UserId");
+                    b.Property<Guid?>("TypeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("EcoEntityId");
-
-                    b.HasIndex("IcoId");
-
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("UnSDGGoalId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Problems");
                 });
@@ -214,33 +397,59 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AddressId");
+
+                    b.Property<Guid?>("CollectionId");
+
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<string>("Description")
-                        .HasMaxLength(2000);
-
-                    b.Property<Guid?>("ProblemId");
-
-                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(500);
+                        .HasMaxLength(1000);
 
-                    b.Property<string>("Url")
-                        .HasMaxLength(500);
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<Guid?>("UserId");
+                    b.Property<Guid?>("TypeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProblemId");
+                    b.HasIndex("AddressId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CollectionId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ProjectUrl", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Titile")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("TypeId");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProjectUrls");
                 });
 
             modelBuilder.Entity("Domain.Entities.Role", b =>
@@ -261,8 +470,7 @@ namespace Api.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -316,8 +524,7 @@ namespace Api.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -327,9 +534,11 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50);
 
                     b.Property<Guid>("UserId");
 
@@ -367,15 +576,17 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ProblemId");
+                    b.Property<string>("Type")
+                        .HasMaxLength(50);
 
-                    b.Property<Guid?>("UserId");
+                    b.Property<Guid>("TypeId");
+
+                    b.Property<string>("VoterType")
+                        .HasMaxLength(50);
+
+                    b.Property<Guid>("VoterTypeId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProblemId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Votes");
                 });
@@ -383,8 +594,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClaimType");
 
@@ -402,8 +612,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ClaimType");
 
@@ -450,6 +659,17 @@ namespace Api.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Address", b =>
+                {
+                    b.HasOne("Domain.Entities.CoreEntities.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId1");
+
+                    b.HasOne("Domain.Entities.CoreEntities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId1");
+                });
+
             modelBuilder.Entity("Domain.Entities.CoreEntities.State", b =>
                 {
                     b.HasOne("Domain.Entities.CoreEntities.Country", "Country")
@@ -458,40 +678,8 @@ namespace Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Idea", b =>
+            modelBuilder.Entity("Domain.Entities.EcoDetails", b =>
                 {
-                    b.HasOne("Domain.Entities.Problem", "Problem")
-                        .WithMany("Ideas")
-                        .HasForeignKey("ProblemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Ideas")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Domain.Entities.OrganizationDetail", b =>
-                {
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Photo", b =>
-                {
-                    b.HasOne("Domain.Entities.Problem", "Problem")
-                        .WithMany("Photos")
-                        .HasForeignKey("ProblemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Problem", b =>
-                {
-                    b.HasOne("Domain.Entities.CoreEntities.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
                     b.HasOne("Domain.Entities.CoreEntities.EcoEntity", "EcoEntity")
                         .WithMany()
                         .HasForeignKey("EcoEntityId");
@@ -500,30 +688,56 @@ namespace Api.Migrations
                         .WithMany()
                         .HasForeignKey("IcoId");
 
-                    b.HasOne("Domain.Entities.CoreEntities.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
-
                     b.HasOne("Domain.Entities.CoreEntities.UnSDGGoal", "UnSDGGoal")
                         .WithMany()
                         .HasForeignKey("UnSDGGoalId");
+                });
 
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Problems")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity("Domain.Entities.Idea", b =>
+                {
+                    b.HasOne("Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+                });
+
+            modelBuilder.Entity("Domain.Entities.OrganizationDetail", b =>
+                {
+                    b.HasOne("Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("Domain.Entities.Collection", "Collection")
+                        .WithMany("Organizations")
+                        .HasForeignKey("CollectionId");
+
+                    b.HasOne("Domain.Entities.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Photo", b =>
+                {
+                    b.HasOne("Domain.Entities.CoreEntities.PhotoType", "PhotoType")
+                        .WithMany()
+                        .HasForeignKey("PhotoTypeId");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Problem", b =>
+                {
+                    b.HasOne("Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
                 });
 
             modelBuilder.Entity("Domain.Entities.Project", b =>
                 {
-                    b.HasOne("Domain.Entities.Problem", "Problem")
-                        .WithMany("Projects")
-                        .HasForeignKey("ProblemId");
+                    b.HasOne("Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
 
-                    b.HasOne("Domain.Entities.User", "User")
+                    b.HasOne("Domain.Entities.Collection")
                         .WithMany("Projects")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CollectionId");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserDetail", b =>
@@ -553,18 +767,6 @@ namespace Api.Migrations
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId1");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Vote", b =>
-                {
-                    b.HasOne("Domain.Entities.Problem", "Problem")
-                        .WithMany("Votes")
-                        .HasForeignKey("ProblemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Votes")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

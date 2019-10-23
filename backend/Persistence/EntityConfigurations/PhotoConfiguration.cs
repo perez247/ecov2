@@ -9,13 +9,13 @@ namespace Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Photo> builder)
         {
             builder.Property(entity => entity.Url)
-                .HasMaxLength(500);
-
-            builder.Property(entity => entity.Description)
-                .HasMaxLength(2000);
+                .HasMaxLength(1000);
 
             builder.Property(entity => entity.PublicId)
-                .HasMaxLength(500);
+                .HasMaxLength(1000);
+
+            builder.Property(entity => entity.Type)
+                .HasMaxLength(50);
         }
     }
 }

@@ -17,12 +17,22 @@ namespace Persistence.Repository
         }
         public async Task<ICollection<Country>> GetCountries()
         {
-            return await _dataContext.Countries.ToListAsync();
+            // await Task.WhenAll();
+            // return null;
+            return await _dataContext.Countries
+                    .Where(c => c.Id != _allState)
+                    .OrderBy(c => c.Name)
+                    .ToListAsync();
         }
 
         public async Task<ICollection<State>> GetStates(string CountryId)
         {
-            return await _dataContext.States.Where(s => s.CountryId.ToString() == CountryId || s.CountryId == _allState).ToListAsync();
+            // await Task.WhenAll();
+            // return null;
+            return await _dataContext.States
+                .Where(s => s.CountryId.ToString() == CountryId || s.CountryId == _allState)
+                .OrderBy(s => s.Name)
+                .ToListAsync();
         }
 
 

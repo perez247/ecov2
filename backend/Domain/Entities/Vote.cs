@@ -9,11 +9,11 @@ namespace Domain.Entities
         public Guid Id { get; set; }
         
         // User
-        public Guid? UserId { get; set; }
-        public User User { get; set; }
+        public Guid TypeId { get; set; }
+        public string Type { get; set; }
 
         // Problem
-        public Guid? ProblemId { get; set; }
-        public Problem Problem { get; set; }
+        public Guid VoterTypeId { get; set; }
+        public string VoterType { get; set; }
     }
 }

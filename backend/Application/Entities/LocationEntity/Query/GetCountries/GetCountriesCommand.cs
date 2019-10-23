@@ -13,16 +13,16 @@ namespace Application.Entities.LocationEntity.Query.GetCountries
 
     public class GetCountriesHandler : IRequestHandler<GetCountriesCommand, ICollection<CountriesDTO>>
     {
-        public ILocationRepository _location { get; set; }
         public IMapper _mapper { get; set; }
-        public GetCountriesHandler(ILocationRepository location, IMapper mapper)
+        public IUnitOfWork _unitOfWork { get; set; }
+        public GetCountriesHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _location = location;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task<ICollection<CountriesDTO>> Handle(GetCountriesCommand request, CancellationToken cancellationToken)
         {   
-            return _mapper.Map<ICollection<Country>, ICollection<CountriesDTO>>(await _location.GetCountries());
+            return _mapper.Map<ICollection<Country>, ICollection<CountriesDTO>>(await _unitOfWork.Location.GetCountries());
         }
     }
 }

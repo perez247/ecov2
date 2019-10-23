@@ -3,10 +3,12 @@
   "compilerOptions": {
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "baseUrl": "./",
+    "types": ["jquery"],
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
+    "module": "es2015",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",

@@ -3,11 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repository;
 using Microsoft.AspNetCore.Builder;
 using System;
-using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Domain.Entities.CoreEntities;
+using System.Linq;
 
 namespace Persistence.Extensions
 {
@@ -28,7 +28,7 @@ namespace Persistence.Extensions
                 ));
             } else {
                 // Using MS SQL for Development
-                services.AddDbContext<DefaultDataContext>(x => x.UseSqlServer(
+                services.AddDbContext<DefaultDataContext>(x => x.UseNpgsql(
                         connectionString, b => b.MigrationsAssembly(assemblyName)
                 ));
             }
@@ -94,7 +94,7 @@ namespace Persistence.Extensions
                 context.SaveChanges();
             } 
 
-            // context.SaveChanges();
+            context.SaveChanges();
         }
 
     }

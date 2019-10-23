@@ -1,24 +1,38 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
     public class Project
     {
-        // Id,WebLink,Title,Description,Deleted,DateCreated,DateModified,UserId,ProblemBetaId
+        // Id,WebLink,Title,Description,Deleted,DateCreated,DateModified,UserId,ProblemBetaId        
         public Guid Id { get; set; }
-        public String Title { get; set; }
-        public String Url { get; set; }
-        public String Description { get; set; }
-        public bool Deleted { get; set; }
+        public string Description { get; set; }
+
+        public virtual EcoDetails EcoDetails { get; set; }
+
+        // DateTime
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        
-        // User
-        public Guid? UserId { get; set; }
-        public User User { get; set; }
 
-        // Problem
-        public Guid? ProblemId { get; set; }
-        public Problem Problem { get; set; }
+        // Address
+        public virtual Address Address { get; set; }
+
+        // User
+        public Guid? TypeId { get; set; }
+        public string Type { get; set; }
+
+        public virtual ICollection<ProjectUrl> ProjectUrls { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }        
+        public virtual ICollection<Comment> Comments { get; set; }
+
+        public Project()
+        {
+            ProjectUrls = new HashSet<ProjectUrl>();
+            Photos = new HashSet<Photo>();
+            Votes = new HashSet<Vote>();
+            Comments = new HashSet<Comment>();
+        }
     }
 }

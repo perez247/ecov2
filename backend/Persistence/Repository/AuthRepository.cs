@@ -15,15 +15,18 @@ namespace Persistence.Repository
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IEmailService _emailService;
+        private readonly DefaultDataContext _dataContext;
 
-        public AuthRepository(UserManager<User> userManager, SignInManager<User> signInManager, IEmailService emailService)
+        public AuthRepository(UserManager<User> userManager, SignInManager<User> signInManager, DefaultDataContext dataContext)
         {
-             _userManager = userManager;
+            _userManager = userManager;
             _signInManager = signInManager;
-            _emailService = emailService;
+            _dataContext = dataContext;
         }
 
+
+        /// <summary> Create </summary>
+        /// 
         public async Task<EmailData> SignUp(User user, string Password) {
             var result = await _userManager.CreateAsync(user, Password);
 
@@ -32,6 +35,8 @@ namespace Persistence.Repository
                 Errors = string.Join(',', result.Errors.Select(x=>x.Description)),
                 User = null
             };
+
+            user = await CreateUserDetailsAndContacts(user);
             
             var EmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             
@@ -138,9 +143,19 @@ namespace Persistence.Repository
             return new EmailData() { User = user };
         }
 
-        // public Task<EmailData> ChangeUserPassword(string userId, string password)
-        // {
-        //     throw new System.NotImplementedException();
-        // }
+        private async Task<User> CreateUserDetailsAndContacts(User user)
+        {
+            var contact = new Contact() {
+                Type = nameof(User),
+                TypeId = user.Id,
+                Email_1 = user.Email
+            };
+
+            _dataContext.Contacts.Add(contact);
+
+            await _dataContext.SaveChangesAsync();
+
+            return user;
+        }
     }
 } 

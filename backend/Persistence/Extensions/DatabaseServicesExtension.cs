@@ -10,6 +10,7 @@ namespace Persistence.Extensions
             // Add Auth Repository
             services.AddTransient<IAuthRepository, AuthRepository>();
             services.AddTransient<ILocationRepository, LocationRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }

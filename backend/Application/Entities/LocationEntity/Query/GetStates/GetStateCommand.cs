@@ -9,24 +9,22 @@ using MediatR;
 namespace Application.Entities.LocationEntity.Query.GetStates
 {
     public class GetStateCommand : IRequest<ICollection<StateDTO>>
-    { 
+    {
         public string CountryId { get; set; }
     }
 
     public class GetStateHandler : IRequestHandler<GetStateCommand, ICollection<StateDTO>>
     {
-        public ILocationRepository _location { get; set; }
         public IMapper _mapper { get; set; }
-
-        public GetStateHandler(ILocationRepository location, IMapper mapper)
+        public IUnitOfWork _unitOfWork { get; set; }
+        public GetStateHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _location = location;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
-
-        public async Task<ICollection<StateDTO>> Handle(GetStateCommand request, CancellationToken cancellationToken)
+        async Task<ICollection<StateDTO>> IRequestHandler<GetStateCommand, ICollection<StateDTO>>.Handle(GetStateCommand request, CancellationToken cancellationToken)
         {
-            return _mapper.Map<ICollection<State>, ICollection<StateDTO>>(await _location.GetStates(request.CountryId));
+            return _mapper.Map<ICollection<State>, ICollection<StateDTO>>(await _unitOfWork.Location.GetStates(request.CountryId));
         }
     }
 }

@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.EntityConfigurations
 {
-    public class IdeaConfiguration : IEntityTypeConfiguration<Idea>
+    public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {
-        public void Configure(EntityTypeBuilder<Idea> builder)
+        public void Configure(EntityTypeBuilder<Project> builder)
         {
-
             builder.Property(entity => entity.Description)
                 .IsRequired()
                 .HasMaxLength(1000);
