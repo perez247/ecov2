@@ -27,10 +27,9 @@ stages:
     timeoutInMinutes: 30
     displayName: Build images
     steps:
-      - bash: |
-        docker build -t newecopeoplev1/frontend_dev ./frontend
-        docker build -t newecopeoplev1/backend_dev ./backend
-        docker build -t newecopeoplev1/nginx_dev ./nginx
+      bash: docker build -t newecopeoplev1/frontend_dev ./frontend
+      bash: docker build -t newecopeoplev1/backend_dev ./backend
+      bash: docker build -t newecopeoplev1/nginx_dev ./nginx
 - stage: Push
   displayName: Push images
   jobs:
@@ -38,9 +37,8 @@ stages:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     displayName: Pushing images
     steps:
-      - bash: |
-          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
-          docker push newecopeoplev1/frontend_dev
-          docker push newecopeoplev1/backend_dev
-          docker push newecopeoplev1/nginx_dev
-          docker push newecopeoplev1/nginx_template_dev
+      bash: docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
+      bash: docker push newecopeoplev1/frontend_dev
+      bash: docker push newecopeoplev1/backend_dev
+      bash: docker push newecopeoplev1/nginx_dev
+      bash: docker push newecopeoplev1/nginx_template_dev
