@@ -27,7 +27,11 @@ stages:
     timeoutInMinutes: 30
     displayName: Build images
     steps:
-    - script: docker build -t newecopeoplev1/frontend_dev ./frontend
+      displayName: Building frontend image
+      script: docker build -t newecopeoplev1/frontend_dev ./frontend
+    steps:
+      displayName: Building backend image
+      script: docker build -t newecopeoplev1/backend_dev ./backend
       # docker build -t newecopeoplev1/backend_dev ./backend
       # docker build -t newecopeoplev1/nginx_dev ./nginx
 - stage: Push
