@@ -29,18 +29,22 @@ stages:
     timeoutInMinutes: 30
     displayName: Build images for development
     steps:
-      - task: Docker@2
-        displayName: Build frontend image
-        inputs:
-          command: build
-          dockerfile: './frontend/Dockerfile'
-          tags: '$(frontend)_dev'
-      - task: Docker@2
-        displayName: Build backend image
-        inputs:
-          command: build
-          dockerfile: './backend/Dockerfile'
-          tags: '$(backend)_dev'
+      - script: |
+          docker build -t newecopeoplev1/frontend_dev ./frontend
+          docker build -t newecopeoplev1/backend_dev ./backend
+
+      # - task: Docker@2
+      #   displayName: Build frontend image
+      #   inputs:
+      #     command: build
+      #     dockerfile: './frontend/Dockerfile'
+      #     tags: '$(frontend)_dev'
+      # - task: Docker@2
+      #   displayName: Build backend image
+      #   inputs:
+      #     command: build
+      #     dockerfile: './backend/Dockerfile'
+      #     tags: '$(backend)_dev'
             
     #   displayName: Building frontend image
     #   - script: 
