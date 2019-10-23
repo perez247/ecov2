@@ -17,6 +17,8 @@ resources:
 variables:
   projectName: 'Eco Phase 2'
   DOCKER_ID: $(DOCKER_ID)
+  frontend_tag: '$(DOCKER_ID)/frontend'
+  backend_tag: '$(DOCKER_ID)/backend'
 
 stages:
 - stage: Build
@@ -27,11 +29,25 @@ stages:
     timeoutInMinutes: 30
     displayName: Build images for development
     steps:
-      displayName: Building frontend image
-      script: docker build -t newecopeoplev1/frontend_dev ./frontend
-    steps:
-      displayName: Building backend image
-      script: docker build -t newecopeoplev1/backend_dev ./backend
+      - task: Docker@2
+        displayName: Build frontend image
+        inputs:
+          command: build
+          dockerfile: './frontend'
+          tags: '$(frontend)_dev'
+      - task: Docker@2
+        displayName: Build backend image
+        inputs:
+          command: build
+          dockerfile: './backend'
+          tags: '$(backend)_dev'
+            
+    #   displayName: Building frontend image
+    #   - script: 
+    #     docker build -t newecopeoplev1/frontend_dev ./frontend
+    # steps:
+    #   displayName: Building backend image
+    #   script: docker build -t newecopeoplev1/backend_dev ./backend
       # docker build -t newecopeoplev1/backend_dev ./backend
       # docker build -t newecopeoplev1/nginx_dev ./nginx
 - stage: Push
