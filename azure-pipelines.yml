@@ -29,8 +29,8 @@ stages:
     steps:
     - script: |
       docker build -t newecopeoplev1/frontend_dev ./frontend
-      docker build -t newecopeoplev1/backend_dev ./backend
-      docker build -t newecopeoplev1/nginx_dev ./nginx
+      # docker build -t newecopeoplev1/backend_dev ./backend
+      # docker build -t newecopeoplev1/nginx_dev ./nginx
 - stage: Push
   displayName: Push images
   jobs:
@@ -40,7 +40,7 @@ stages:
     steps:
     - script: |
         docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
-        docker push newecopeoplev1/frontend_dev
-        docker push newecopeoplev1/backend_dev
-        docker push newecopeoplev1/nginx_dev
-        docker push newecopeoplev1/nginx_template_dev
+        # docker push newecopeoplev1/frontend_dev
+        # docker push newecopeoplev1/backend_dev
+        # docker push newecopeoplev1/nginx_dev
+        # docker push newecopeoplev1/nginx_template_dev
