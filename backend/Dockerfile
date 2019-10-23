@@ -37,3 +37,4 @@ RUN mkdir -p Persistence/data/locations
 COPY --from=build-env /app/Persistence/data/locations ./Persistence/data/locations
 
 ENTRYPOINT [ "dotnet","Api.dll"  ]
+
