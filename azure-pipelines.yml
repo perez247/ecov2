@@ -26,9 +26,9 @@ stages:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     timeoutInMinutes: 30
     displayName: Build images
-    # steps:
-    # - script: |
-    #   docker build -t newecopeoplev1/frontend_dev ./frontend
+    steps:
+    - script: |
+      docker build -t newecopeoplev1/frontend_dev ./frontend
       # docker build -t newecopeoplev1/backend_dev ./backend
       # docker build -t newecopeoplev1/nginx_dev ./nginx
 - stage: Push
