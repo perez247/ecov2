@@ -57,15 +57,22 @@ stages:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     displayName: Pushing images for development
     steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'Eco Development'
-        repository: 'frontend_dev'
-        command: 'push'
-        tags: 'latest'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'Eco Development'
-        repository: 'backend_dev'
-        command: 'push'
-        tags: 'latest'
+      - script: | 
+          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
+          docker push newecopeoplev1/frontend_dev
+          docker push newecopeoplev1/backend_dev
+          # docker push newecopeoplev1/nginx_dev
+          # docker push newecopeoplev1/nginx_template_dev
+
+    # - task: Docker@2
+    #   inputs:
+    #     containerRegistry: 'Eco Development'
+    #     repository: 'frontend_dev'
+    #     command: 'push'
+    #     tags: 'latest'
+    # - task: Docker@2
+    #   inputs:
+    #     containerRegistry: 'Eco Development'
+    #     repository: 'backend_dev'
+    #     command: 'push'
+    #     tags: 'latest'
