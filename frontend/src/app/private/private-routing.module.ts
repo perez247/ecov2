@@ -11,6 +11,7 @@ import { AppRoutes } from 'app/shared/routes/app.routes';
 import { PrivateCommunityFeedsComponent } from './components/communities/private-community-feeds/private-community-feeds.component';
 import { PrivateProblemFeedsComponent } from './components/problem/private-problem-feeds/private-problem-feeds.component';
 import { PrivateProjectFeedsComponent } from './components/project/private-project-feeds/private-project-feeds.component';
+import { PrivateIdeaFeedsComponent } from './components/idea/private-idea-feeds/private-idea-feeds.component';
 
 // Get the whole routes of the app
 const appRoutes = AppRoutes.generateRoutes();
@@ -56,6 +57,11 @@ const routes: Routes = [
             //  Problem feeds
             path: appRoutes.private.home.problems.name,
             component: PrivateProblemFeedsComponent
+          },
+          {
+            //  Idea feeds
+            path: appRoutes.private.home.idea.name,
+            component: PrivateIdeaFeedsComponent
           },
           {
             // project feeds

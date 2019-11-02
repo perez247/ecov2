@@ -10,6 +10,14 @@ services:
 
   frontend:
     image: newecopeoplev1/frontend_dev
+    ports:
+      - "4200"
 
   backend:
     image: newecopeoplev1/backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=production
+      - DefaultConnection
+      - SENDGRID_APIKEY
+    ports:
+      - "5000"

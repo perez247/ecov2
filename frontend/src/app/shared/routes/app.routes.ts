@@ -69,6 +69,12 @@ export class AppRoutes {
                 path: `private/home/projects`
             },
 
+            // Ideas
+            idea: {
+                name: `idea`,
+                path: `private/home/idea`
+            },
+
             // Problems
             problems: {
                 name: `problems`,
