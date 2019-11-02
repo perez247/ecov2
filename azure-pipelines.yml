@@ -18,7 +18,7 @@ variables:
   projectName: 'Eco Phase 2'
 
 stages:
-- stage: Develop Branch
+- stage: develop
   displayName: Build/Push Images for Development
   jobs:  
   - job: Develop
@@ -32,7 +32,7 @@ stages:
           docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
           docker push newecopeoplev1/frontend_dev
           docker push newecopeoplev1/backend_dev
-- stage: Master Branch
+- stage: master
   displayName: Build/Push images for Production
   jobs:
   - job: Master
