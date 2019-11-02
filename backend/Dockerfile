@@ -28,7 +28,7 @@ RUN apt-get update \
 
 COPY --from=build-env /app/Api/out .
 
-# Copy botdetect.xml for botdetect captcha
+# Copy botdetect.xml for botdetect captcha testing
 # RUN mkdir Api
 COPY --from=build-env /app/Api/botdetect.xml ./
 
