@@ -23,6 +23,8 @@ import { PrivateHomeTopnavbarComponent } from './components/home/private-home-to
 import { PrivateChatMessageComponent } from './components/chat/private-chat-message/private-chat-message.component';
 import { PrivateChatFeedsComponent } from './components/chat/private-chat-feeds/private-chat-feeds.component';
 import { PrivateAddProblemComponent } from './components/modals/problem/private-add-problem/private-add-problem.component';
+import { PrivateIdeaCardComponent } from './components/idea/private-idea-card/private-idea-card.component';
+import { PrivateIdeaFeedsComponent } from './components/idea/private-idea-feeds/private-idea-feeds.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,8 @@ import { PrivateAddProblemComponent } from './components/modals/problem/private-
         PrivateChatMessageComponent,
         PrivateChatFeedsComponent,
         PrivateAddProblemComponent,
+        PrivateIdeaCardComponent,
+        PrivateIdeaFeedsComponent,
     ],
     entryComponents: [
         PrivateAddProblemComponent,
@@ -76,6 +80,8 @@ import { PrivateAddProblemComponent } from './components/modals/problem/private-
         PrivateChatMessageComponent,
         PrivateChatFeedsComponent,
         PrivateAddProblemComponent,
+        PrivateIdeaCardComponent,
+        PrivateIdeaFeedsComponent,
     ],
     providers: [
         FeedsService
