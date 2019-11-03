@@ -29,7 +29,7 @@ stages:
       - script: |
           docker build -t newecopeoplev1/frontend_dev ./frontend
           docker build -t newecopeoplev1/backend_dev ./backend
-          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
+          echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
           docker push newecopeoplev1/frontend_dev
           docker push newecopeoplev1/backend_dev
 - stage: master
@@ -42,6 +42,6 @@ stages:
       - script: | 
           docker build -t newecopeoplev1/frontend ./frontend
           docker build -t newecopeoplev1/backend ./backend
-          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
+          echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
           docker push newecopeoplev1/frontend
           docker push newecopeoplev1/backend
