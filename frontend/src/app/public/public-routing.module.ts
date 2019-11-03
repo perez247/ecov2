@@ -17,6 +17,7 @@ const appRoutes = AppRoutes.generateRoutes();
 
 const routes: Routes = [
   {
+    // If 
     path: '',
     redirectTo: appRoutes.public.signIn.name,
     pathMatch: 'full',
