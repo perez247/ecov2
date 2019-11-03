@@ -9,7 +9,8 @@ WORKDIR /app/Api
 RUN dotnet restore
 
 # Build production files
-RUN dotnet publish -c Release -o out
+# RUN dotnet publish -c Release -o out
+RUN mkdir -p out
 
 #Revert back to the default directory
 WORKDIR /app
