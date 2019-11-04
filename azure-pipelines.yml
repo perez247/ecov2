@@ -28,10 +28,10 @@ stages:
     steps:
       - script: |
           docker build -t newecopeoplev1/frontend_dev ./frontend
-          docker build -t newecopeoplev1/backend_dev ./backend
-          echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+          # docker build -t newecopeoplev1/backend_dev ./backend
+          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
           docker push newecopeoplev1/frontend_dev
-          docker push newecopeoplev1/backend_dev
+          # docker push newecopeoplev1/backend_dev
 - stage: master
   displayName: Build/Push images for Production
   jobs:
@@ -42,6 +42,6 @@ stages:
       - script: | 
           docker build -t newecopeoplev1/frontend ./frontend
           docker build -t newecopeoplev1/backend ./backend
-          echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+          docker login -u $(DOCKER_ID) -p $(DOCKER_PWD)
           docker push newecopeoplev1/frontend
           docker push newecopeoplev1/backend
