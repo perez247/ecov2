@@ -1,4 +1,4 @@
-FROM microsoft/dotnet AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk AS build-env
 WORKDIR /app
 
 # Copy everything .dockerignore ignores the rest of the files
@@ -9,8 +9,8 @@ WORKDIR /app/Api
 RUN dotnet restore
 
 # Build production files
-# RUN dotnet publish -c Release -o out
-RUN mkdir -p out
+RUN dotnet publish -c Release -o out
+# RUN mkdir -p out
 
 #Revert back to the default directory
 WORKDIR /app
