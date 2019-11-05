@@ -19,5 +19,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=production
       - DefaultConnection
       - SENDGRID_APIKEY
+      - AUTHORIZATION_TOKEN
     ports:
       - "5000"
