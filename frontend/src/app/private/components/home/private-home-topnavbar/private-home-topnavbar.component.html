@@ -1,4 +1,4 @@
-<div *ngIf="!mobile" >
+<div>
           
   <div class="text-center">
     <ul class="list-inline rounded-bottom p-1">
@@ -6,50 +6,61 @@
       <li>
         <button
           mat-button
-          matTooltip="Problems"
+          matTooltip="Global"
           class="mx-2 p-0 primary"
           [routerLink]="['/'+ appRoutes.private.home.problems.path]" routerLinkActive="router-link-active"
         >
-          <i class="ft-alert-circle fa-1x display-block"></i> <small class="display-block mt--10">Problems</small>
+          <i class="ft-globe fa-1x display-block"></i>
         </button>
       </li>
 
       <li>
           <button
             mat-button
-            matTooltip="Projects"
+            matTooltip="Personal"
             class="mx-2 p-0 primary"
             [routerLink]="['/'+ appRoutes.private.home.projects.path]" routerLinkActive="router-link-active"
           >
-            <i class="ft-airplay fa-1x display-block"></i><small class="display-block mt--10">Projects</small>
+            <i class="ft-users fa-1x display-block"></i>
           </button>
         </li>
 
       <li>
         <button
           mat-button
-          matTooltip="Communities"
+          matTooltip="Filter"
           class="mx-2 p-0 primary"
           [routerLink]="['/'+ appRoutes.private.home.communities.path]" routerLinkActive="router-link-active"
         >
-          <i class="ft-users fa-1x display-block"></i><small class="display-block mt--10">Communities</small>
+          <i class="ft-filter fa-1x display-block"></i>
         </button>
       </li>
 
-      <li>
+      <!-- <li>
         <button
           mat-button
           matTooltip="Map"
           class="mx-2 p-0 primary"
         >
-          <i class="ft-map-pin fa-1x display-block"></i><small class="display-block mt--10">Map</small>
+          <i class="ft-map-pin fa-1x display-block"></i>
+        </button>
+      </li> -->
+
+      <li>
+        <button
+          mat-button
+          matTooltip="Create/Share"
+          class="mx-2 p-0 primary"
+        >
+          <i class="ft-plus-circle fa-1x display-block"></i>
         </button>
       </li>
+
     </ul>
   </div>
 </div>
 
-<div *ngIf="mobile" >
+<!-- <div *ngIf="mobile" >
           
   <div class="text-center">
     <ul class="list-inline rounded-bottom p-1">
@@ -98,4 +109,4 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->

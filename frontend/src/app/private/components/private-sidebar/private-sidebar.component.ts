@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
-import { ROUTES } from './private-sidebar-routes.config';
+import { SideBar, ROUTES } from './private-sidebar-routes.config';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AppRoutes } from 'app/shared/routes/app.routes';
 import { customAnimations } from 'app/shared/animations/custom-animations';
 import { ConfigService } from 'app/shared/services/config.service';
 
@@ -12,6 +13,8 @@ import { ConfigService } from 'app/shared/services/config.service';
   animations: customAnimations
 })
 export class PrivateSidebarComponent implements OnInit, AfterViewInit {
+
+  // appRoutes = AppRoutes.generateRoutes();
 
   @ViewChild('toggleIcon') toggleIcon: ElementRef;
   public menuItems: any[];
@@ -30,7 +33,7 @@ export class PrivateSidebarComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     public translate: TranslateService,
-    private configService: ConfigService,
+    private configService: ConfigService
   ) {
     if (this.depth === undefined) {
       this.depth = 0;
@@ -41,8 +44,7 @@ export class PrivateSidebarComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.config = this.configService.templateConf;
-    this.menuItems = ROUTES;
-
+    this.menuItems = ROUTES
   }
 
   ngAfterViewInit() {
@@ -63,7 +65,6 @@ export class PrivateSidebarComponent implements OnInit, AfterViewInit {
         }
       }
     }, 0);
-
 
   }
 

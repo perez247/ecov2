@@ -26,9 +26,10 @@ import { ValidatorErrorMessageComponent } from './validators/validator-error-mes
 import { FormErrorService } from './services/form-error/form-error.service';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { JwtInterceptorProvider } from './interceptors/jwt.interceptor';
-import { NotFoundComponent } from 'app/public/pages/not-found/not-found.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { LocationService } from './services/location/location.service';
+import { NotFoundComponent } from '../public/pages/not-found/not-found.component';
+import { ConfigService } from './services/config.service';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { LocationService } from './services/location/location.service';
         NotFoundComponent,
     ],
     providers: [
+        ConfigService,
         LocationService,
         AuthService,
         ToasterService,

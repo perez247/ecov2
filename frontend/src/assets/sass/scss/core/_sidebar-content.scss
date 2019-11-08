@@ -113,7 +113,7 @@
   z-index: 4;
   width: 250px;
   height: 100vh;
-  @include sidebar-shadow();
+  // @include sidebar-shadow();
   -webkit-transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
   transition: width 0.3s cubic-bezier(0, 0, 0.2, 1);
   transform: translate3d(0, 0, 0);
@@ -441,7 +441,7 @@
   }
 
   &[data-background-color="man-of-steel"] {
-    @include set-gradient-background-color(#00993E, #00993E);
+    @include set-gradient-background-color(#F5F7FA, #F5F7FA);
   }
 
   &[data-background-color="purple-love"] {
