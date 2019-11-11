@@ -12,6 +12,7 @@ import { PrivateCommunityFeedsComponent } from './components/communities/private
 import { PrivateProblemFeedsComponent } from './components/problem/private-problem-feeds/private-problem-feeds.component';
 import { PrivateProjectFeedsComponent } from './components/project/private-project-feeds/private-project-feeds.component';
 import { PrivateIdeaFeedsComponent } from './components/idea/private-idea-feeds/private-idea-feeds.component';
+import { PrivatePostsComponent } from './pages/home/private-posts/private-posts.component';
 
 // Get the whole routes of the app
 const appRoutes = AppRoutes.generateRoutes();
@@ -43,10 +44,14 @@ const routes: Routes = [
         component: PrivateHomeComponent,
         children: [
           {
-            // Redirect to problems if none is selected
+            // Redirect to showing user posts if none is selected
             path: '',
-            redirectTo: appRoutes.private.home.problems.name,
+            redirectTo: appRoutes.private.home.posts.default,
             pathMatch: 'full'
+          },
+          {
+            path: appRoutes.private.home.posts.withParams,
+            component: PrivatePostsComponent
           },
           {
             // Community feeds

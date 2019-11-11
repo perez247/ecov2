@@ -30,6 +30,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { LocationService } from './services/location/location.service';
 import { NotFoundComponent } from '../public/pages/not-found/not-found.component';
 import { ConfigService } from './services/config.service';
+import { AuthLogoutGuard } from './services/auth/auth.logout.guard';
+import { AuthGuard } from './services/auth/auth-guard.service';
 
 
 @NgModule({
@@ -82,6 +84,8 @@ import { ConfigService } from './services/config.service';
         NotFoundComponent,
     ],
     providers: [
+        AuthGuard,
+        AuthLogoutGuard,
         ConfigService,
         LocationService,
         AuthService,

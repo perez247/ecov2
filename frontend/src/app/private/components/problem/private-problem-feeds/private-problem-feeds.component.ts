@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { PrivateAddProblemComponent } from '../../modals/problem/private-add-problem/private-add-problem.component';
+import { PrivateAddProblemComponent } from '../../shared/modals/problem/private-add-problem/private-add-problem.component';
 
 @Component({
   selector: 'app-private-problem-feeds',

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/services/auth/auth-guard.service';
 import { NotFoundComponent } from './public/pages/not-found/not-found.component';
 import { AppRoutes } from './shared/routes/app.routes';
+import { AuthLogoutGuard } from './shared/services/auth/auth.logout.guard';
 
 // Get the whole routes of the app
 const routes = AppRoutes.generateRoutes();
@@ -28,6 +29,11 @@ const appRoutes: Routes = [
     path: routes.admin.name,
     loadChildren: './admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: routes.logout,
+    component: NotFoundComponent,
+    canActivate: [AuthLogoutGuard]
   },
   {
     path: '**',

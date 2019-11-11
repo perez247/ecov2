@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
-import { SideBar, ROUTES } from './private-sidebar-routes.config';
+import { ROUTES } from './private-sidebar-routes.config';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AppRoutes } from 'app/shared/routes/app.routes';

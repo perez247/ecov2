@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrivateHomeNavbarComponent } from './private-home-navbar.component';
+import { PrivatePostsComponent } from './private-posts.component';
 
-describe('PrivateHomeNavbarComponent', () => {
-  let component: PrivateHomeNavbarComponent;
-  let fixture: ComponentFixture<PrivateHomeNavbarComponent>;
+describe('PrivatePostsComponent', () => {
+  let component: PrivatePostsComponent;
+  let fixture: ComponentFixture<PrivatePostsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrivateHomeNavbarComponent ]
+      declarations: [ PrivatePostsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PrivateHomeNavbarComponent);
+    fixture = TestBed.createComponent(PrivatePostsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
