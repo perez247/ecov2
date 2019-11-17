@@ -3,6 +3,12 @@ using Domain.Entities.CoreEntities;
 
 namespace Domain.Entities
 {
+    /// <summary>
+    /// Address of Entities, 
+    /// 
+    /// Type and TypeId determines the entities eg Type = User, TypeId = "Id of the user"
+    /// 
+    /// </summary>
     public class Address
     {
         public Guid Id { get; set; }

@@ -274,15 +274,13 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("AddressId");
-
                     b.Property<Guid?>("CollectionId");
-
-                    b.Property<Guid?>("ContactId");
 
                     b.Property<Guid>("HeadQuaters");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(500);
 
                     b.Property<string>("Type");
 
@@ -292,11 +290,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("CollectionId");
-
-                    b.HasIndex("ContactId");
 
                     b.ToTable("OrganizationDetails");
                 });
@@ -307,8 +301,6 @@ namespace Api.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("BranchId");
-
-                    b.Property<Guid>("HeadQuarterId");
 
                     b.Property<string>("Name");
 
@@ -532,8 +524,14 @@ namespace Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateOfBirth");
+
                     b.Property<string>("FirstName")
                         .HasMaxLength(50);
+
+                    b.Property<byte>("Gender");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(50);
@@ -569,6 +567,44 @@ namespace Api.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Verification.OrganizationVerification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Answered");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<Guid>("OrganizationDetailId");
+
+                    b.Property<int>("RequestType");
+
+                    b.Property<bool>("Validated");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationVerifications");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Verification.WorkVerification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Answered");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<bool>("Validated");
+
+                    b.Property<Guid>("WorkId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkVerifications");
+                });
+
             modelBuilder.Entity("Domain.Entities.Vote", b =>
                 {
                     b.Property<Guid>("Id")
@@ -587,6 +623,30 @@ namespace Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Votes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Work", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<Guid>("OrganizationId");
+
+                    b.Property<string>("Position");
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<bool>("Verified");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Works");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -700,17 +760,9 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Domain.Entities.OrganizationDetail", b =>
                 {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
-                    b.HasOne("Domain.Entities.Collection", "Collection")
+                    b.HasOne("Domain.Entities.Collection")
                         .WithMany("Organizations")
                         .HasForeignKey("CollectionId");
-
-                    b.HasOne("Domain.Entities.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId");
                 });
 
             modelBuilder.Entity("Domain.Entities.Photo", b =>
@@ -765,6 +817,19 @@ namespace Api.Migrations
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Work", b =>
+                {
+                    b.HasOne("Domain.Entities.OrganizationDetail", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

@@ -2,6 +2,11 @@ using System;
 
 namespace Domain.Entities
 {
+    /// <summary>
+    /// 
+    /// Roles assigned to users in an organization
+    /// 
+    /// </summary>
     public class OrganizationTypeRole
     {
         public Guid Id { get; set; }

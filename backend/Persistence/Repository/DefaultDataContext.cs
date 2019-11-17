@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Entities.CoreEntities;
+using Domain.Entities.Verification;
 using EntityFrameworkCore.Triggers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace Persistence.Repository
         public DbSet<ProjectUrl> ProjectUrls { get; set; }
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Vote> Votes { get; set; }
+        public DbSet<Work> Works { get; set; }
         public DbSet<OrganizationRole> OrganizationRoles { get; set; }
         public DbSet<OrganizationTypeRole> OrganizationTypeRoles { get; set; }
 
@@ -40,6 +42,11 @@ namespace Persistence.Repository
         public DbSet<Ico> Icos { get; set; }
         public DbSet<UnSDGGoal> UnSDGGoals { get; set; }
         public DbSet<PhotoType> PhotoTypes { get; set; }
+
+        // Verifications
+        public DbSet<WorkVerification> WorkVerifications { get; set; }
+        public DbSet<OrganizationVerification> OrganizationVerifications { get; set; }
+
         public DefaultDataContext(DbContextOptions<DefaultDataContext> options)
         : base(options) {}
  
@@ -86,14 +93,24 @@ namespace Persistence.Repository
                 await ProjectTriggers.OnDeletingProject(entity, this);
             };
 
-            // Fire trigger on deleting Problems
-            Triggers<Problem>.Deleting += async (entity) => {
-                await ProblemTriggers.OnDeletingProblem(entity, this);
+            // Fire trigger on deleting Idea
+            Triggers<Idea>.Deleting += async (entity) => {
+                await IdeaTriggers.OnDeletingIdea(entity, this);
             };
 
             // Fire trigger on deleting Problems
             Triggers<OrganizationRole>.Deleting += async (entity) => {
                 await OrganizationRoleTriggers.OnDeletingOrganizationRole(entity, this);
+            };
+
+            // Fire trigger on deleting Collections 
+            Triggers<Collection>.Deleting += async (entity) => {
+                await CollectionTrigger.OnDeletingCollection(entity, this);
+            };
+
+            // Fire trigger on deleting Collections 
+            Triggers<Work>.Deleting += async (entity) => {
+                await WorkTrigger.OnDeletingWork(entity, this);
             };
 
             return this.SaveChangesWithTriggersAsync(base.SaveChangesAsync, acceptAllChangesOnSuccess: true, cancellationToken: cancellationToken);

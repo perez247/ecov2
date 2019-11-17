@@ -2,6 +2,14 @@ using System;
 
 namespace Domain.Entities
 {
+    /// <summary>
+    /// Comments made on another entity
+    /// 
+    /// Type and TypeId represents the entity (Table/class) making the comment
+    /// 
+    /// TargetType and TargetTypeId represents the entity (Table/class) the comment is made for
+    ///  
+    /// </summary>
     public class Comment
     {
         public Guid Id { get; set; }

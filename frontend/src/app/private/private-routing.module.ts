@@ -12,7 +12,7 @@ import { PrivateCommunityFeedsComponent } from './components/communities/private
 import { PrivateProblemFeedsComponent } from './components/problem/private-problem-feeds/private-problem-feeds.component';
 import { PrivateProjectFeedsComponent } from './components/project/private-project-feeds/private-project-feeds.component';
 import { PrivateIdeaFeedsComponent } from './components/idea/private-idea-feeds/private-idea-feeds.component';
-import { PrivatePostsComponent } from './pages/home/private-posts/private-posts.component';
+import { PrivatePostsComponent } from './pages/private-home/private-posts/private-posts.component';
 
 // Get the whole routes of the app
 const appRoutes = AppRoutes.generateRoutes();

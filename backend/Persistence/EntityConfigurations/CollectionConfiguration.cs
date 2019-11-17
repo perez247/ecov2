@@ -15,6 +15,7 @@ namespace Persistence.EntityConfigurations
             builder.Ignore(entity => entity.Problems);
             builder.Ignore(entity => entity.Ideas);
             builder.Ignore(entity => entity.Photos);
+            builder.Ignore(entity => entity.Work);
         }
     }
 }

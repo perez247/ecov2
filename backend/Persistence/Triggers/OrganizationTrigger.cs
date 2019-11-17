@@ -23,14 +23,6 @@ namespace Persistence.Triggers
                 if(collections != null)
                     DataContext.Collections.Remove(collections);
 
-            var problems = await DataContext.Problems.Where(p => p.Type == nameof(OrganizationDetail) && p.TypeId == entity.Entity.Id).ToListAsync();
-                if(problems.Count > 0)
-                    DataContext.Problems.RemoveRange(problems);
-
-            var projects = await DataContext.Projects.Where(p => p.Type == nameof(OrganizationDetail) && p.TypeId == entity.Entity.Id).ToListAsync();
-                if(projects.Count > 0)
-                    DataContext.Projects.RemoveRange(projects);
-
             var organizationTypeRoles = await DataContext.OrganizationTypeRoles.Where(p => p.OrganizationId == entity.Entity.Id).ToListAsync();
                 if(organizationTypeRoles.Count > 0)
                     DataContext.OrganizationTypeRoles.RemoveRange(organizationTypeRoles);
@@ -39,9 +31,9 @@ namespace Persistence.Triggers
                 if(organizationRoles.Count > 0)
                     DataContext.OrganizationRoles.RemoveRange(organizationRoles);
 
-            var photos = await DataContext.Photos.Where(p => p.Type == nameof(OrganizationDetail) && p.TypeId == entity.Entity.Id).ToListAsync();
-                if(photos.Count > 0)
-                    DataContext.Photos.RemoveRange(photos);
+            var organizationVerification = await DataContext.OrganizationVerifications.Where(p => p.OrganizationDetailId == entity.Entity.Id).ToListAsync();
+                if(organizationVerification.Count > 0)
+                    DataContext.OrganizationVerifications.RemoveRange(organizationVerification);
             
             if(entity.Entity.HeadQuaters == entity.Entity.Id) {
                 var branches = await DataContext.OrganizationDetails.Where(p => p.HeadQuaters == entity.Entity.Id).ToListAsync();

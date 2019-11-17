@@ -25,7 +25,7 @@ import { PrivateChatFeedsComponent } from './components/shared/chat/private-chat
 import { PrivateAddProblemComponent } from './components/shared/modals/problem/private-add-problem/private-add-problem.component';
 import { PrivateIdeaCardComponent } from './components/idea/private-idea-card/private-idea-card.component';
 import { PrivateIdeaFeedsComponent } from './components/idea/private-idea-feeds/private-idea-feeds.component';
-import { PrivatePostsComponent } from './pages/home/private-posts/private-posts.component';
+import { PrivatePostsComponent } from './pages/private-home/private-posts/private-posts.component';
 
 @NgModule({
     declarations: [

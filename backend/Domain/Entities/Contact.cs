@@ -2,6 +2,9 @@ using System;
 
 namespace Domain.Entities
 {
+    /// <summary>
+    /// Contact of an Entity
+    /// </summary>
     public class Contact
     {
         public Guid Id { get; set; }

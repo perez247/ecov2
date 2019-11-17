@@ -143,7 +143,6 @@ namespace Api.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     BranchId = table.Column<Guid>(nullable: false),
-                    HeadQuarterId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -164,6 +163,22 @@ namespace Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrganizationTypeRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrganizationVerifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Validated = table.Column<bool>(nullable: false),
+                    Answered = table.Column<bool>(nullable: false),
+                    OrganizationDetailId = table.Column<Guid>(nullable: false),
+                    RequestType = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationVerifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,6 +236,21 @@ namespace Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Votes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkVerifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Validated = table.Column<bool>(nullable: false),
+                    Answered = table.Column<bool>(nullable: false),
+                    WorkId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkVerifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -350,7 +380,10 @@ namespace Api.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: true),
                     LastName = table.Column<string>(maxLength: 50, nullable: true),
-                    UserId = table.Column<Guid>(nullable: false)
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Gender = table.Column<byte>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -361,6 +394,29 @@ namespace Api.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrganizationDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 500, nullable: false),
+                    TypeId = table.Column<Guid>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    HeadQuaters = table.Column<Guid>(nullable: false),
+                    Verified = table.Column<bool>(nullable: false),
+                    CollectionId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganizationDetails_Collections_CollectionId",
+                        column: x => x.CollectionId,
+                        principalTable: "Collections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -442,6 +498,34 @@ namespace Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Works",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Position = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false),
+                    OrganizationId = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Verified = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Works", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Works_OrganizationDetails_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "OrganizationDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Works_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Addresses",
                 columns: table => new
                 {
@@ -490,43 +574,6 @@ namespace Api.Migrations
                         name: "FK_Ideas_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrganizationDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    TypeId = table.Column<Guid>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
-                    AddressId = table.Column<Guid>(nullable: true),
-                    ContactId = table.Column<Guid>(nullable: true),
-                    HeadQuaters = table.Column<Guid>(nullable: false),
-                    Verified = table.Column<bool>(nullable: false),
-                    CollectionId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganizationDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrganizationDetails_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrganizationDetails_Collections_CollectionId",
-                        column: x => x.CollectionId,
-                        principalTable: "Collections",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrganizationDetails_Contacts_ContactId",
-                        column: x => x.ContactId,
-                        principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -662,19 +709,9 @@ namespace Api.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganizationDetails_AddressId",
-                table: "OrganizationDetails",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OrganizationDetails_CollectionId",
                 table: "OrganizationDetails",
                 column: "CollectionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrganizationDetails_ContactId",
-                table: "OrganizationDetails",
-                column: "ContactId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_PhotoTypeId",
@@ -706,6 +743,16 @@ namespace Api.Migrations
                 table: "UserDetails",
                 column: "UserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Works_OrganizationId",
+                table: "Works",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Works_UserId",
+                table: "Works",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -729,19 +776,22 @@ namespace Api.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
                 name: "EcoDetails");
 
             migrationBuilder.DropTable(
                 name: "Ideas");
 
             migrationBuilder.DropTable(
-                name: "OrganizationDetails");
-
-            migrationBuilder.DropTable(
                 name: "OrganizationRoles");
 
             migrationBuilder.DropTable(
                 name: "OrganizationTypeRoles");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationVerifications");
 
             migrationBuilder.DropTable(
                 name: "Photos");
@@ -762,6 +812,12 @@ namespace Api.Migrations
                 name: "Votes");
 
             migrationBuilder.DropTable(
+                name: "Works");
+
+            migrationBuilder.DropTable(
+                name: "WorkVerifications");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -774,22 +830,22 @@ namespace Api.Migrations
                 name: "UnSDGGoals");
 
             migrationBuilder.DropTable(
-                name: "Contacts");
-
-            migrationBuilder.DropTable(
                 name: "PhotoTypes");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "Collections");
+                name: "OrganizationDetails");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "States");
+
+            migrationBuilder.DropTable(
+                name: "Collections");
 
             migrationBuilder.DropTable(
                 name: "Countries");
