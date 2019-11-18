@@ -24,6 +24,5 @@ services:
       - ASPNETCORE_ENVIRONMENT=Staging
       - AUTHORIZATION_TOKEN=Thisismenttobethesupersecretpassword
       - HOSTNAME=http://newecopeople.com
-      - SENDGRID_APIKEY=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
     ports:
       - "5000:5000"
