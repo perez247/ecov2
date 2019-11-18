@@ -2,12 +2,6 @@ version: "3.4"
 
 services:
 
-  nginx:
-    restart: always
-    image: newecopeoplev1/nginx_dev
-    ports:
-      - "80:80"
-
   frontend:
     image: newecopeoplev1/frontend_dev
 
@@ -19,15 +13,6 @@ services:
       - DefaultConnection=Filename=StagingDb.db
       - ASPNETCORE_ENVIRONMENT=Staging
       - AUTHORIZATION_TOKEN=Thisismenttobethesupersecretpassword
-      - HOSTNAME=http://localhost
+      - HOSTNAME=http://newecopeople.com
     ports:
       - "5000:5000"
-
-  nginx_template:
-    restart: always
-    image: newecopeoplev1/nginx_template_dev
-    ports:
-      - "4000:4000"
-
-  template:
-    image: newecopeoplev1/template_dev
