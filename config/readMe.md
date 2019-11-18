@@ -32,13 +32,20 @@ The following folders should be created:
           This will contain the database file. This should only be used for staging. In the cause of this project Sqlite will be used for staging. A database will be used when required.
      ### config (/home/{user}/app/config)
           This folder contains the necessary files for making sure the application runs according to my plan. This contains the following:
+
                * redeploy.sh: this is used for Continous Integration. (i.e. it executes when an maerge has been made in the repo). Copy the content of the config/redeploy.sh in to here. Give neccarry permission to user and application.
                     `` sudo chmod +x /home/agent/app/config/redeploy.sh `` 
                     `` sudo chmod 755 /home/agent/app/config/redeploy.sh ``
                     `` sudo visudo  `` and
                     `` www-data ALL=NOPASSWD: /home/agent/app/config/redeploy.sh ``
-               * env.json: This contains all your environment variables. I had difficulties accessing the values from the O.S. Pust all your environment variable here please.
+               Please endevour to check this file properly for the git address, the images being pulled etc. thanks
+
+
+               * env.json: This contains all your environment variables. I had difficulties accessing 
+               the values from the O.S. Pust all your environment variable here please.
+
                * __webhook.php: Used for web hooks sent from the desired repo. It validates the request and exexutes the redeploy.sh file. This file will be moved to a different folder later down the tutorial.
+
                * domain.conf: This is the server block for your domain name and it will be used when installing Nginx
 
 ## Install Nginx
