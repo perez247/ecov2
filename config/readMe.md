@@ -28,8 +28,11 @@ The following folders should be created:
 
      ### src (/home/{user}/app/src)
           This will contain the application source code from the repo.
+
      ### db (/home/{user}/app/db)
           This will contain the database file. This should only be used for staging. In the cause of this project Sqlite will be used for staging. A database will be used when required.
+          * StagingDb.db: create this file inside this folder.
+
      ### config (/home/{user}/app/config)
           This folder contains the necessary files for making sure the application runs according to my plan. This contains the following:
 

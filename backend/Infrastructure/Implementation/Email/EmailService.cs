@@ -20,7 +20,7 @@ namespace Infrastructure.Implementation.Email
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production" || Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Staging")
             {
-                _client = new SendGridClient(Environment.GetEnvironmentVariable("SENDGRID_API"));
+                _client = new SendGridClient(Environment.GetEnvironmentVariable("SENDGRID_APIKEY"));
             }
         }
         private readonly ILogger _logger;
