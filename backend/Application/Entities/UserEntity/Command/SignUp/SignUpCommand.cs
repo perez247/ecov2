@@ -27,6 +27,7 @@ namespace Application.Entities.UserEntity.Command.SignUp
             _auth = auth;
             _mediator = mediator;
         }
+
         public async Task<Unit> Handle(SignUpCommand request, CancellationToken cancellationToken)
         {
             var newUser = new User() {

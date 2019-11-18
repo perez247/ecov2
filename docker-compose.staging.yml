@@ -2,6 +2,14 @@ version: "3.4"
 
 services:
 
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "80:80"
+
   frontend:
     image: newecopeoplev1/frontend_dev
     ports:
@@ -10,11 +18,12 @@ services:
   backend:
     image: newecopeoplev1/backend_dev
     volumes:
-      - ../db/StagingDb.db:/app/StagingDb.db
+      - ./db/StagingDb.db:/app/StagingDb.db
     environment:
       - DefaultConnection=Filename=StagingDb.db
       - ASPNETCORE_ENVIRONMENT=Staging
       - AUTHORIZATION_TOKEN=Thisismenttobethesupersecretpassword
       - HOSTNAME=http://newecopeople.com
+      - SENDGRID_APIKEY=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
     ports:
       - "5000:5000"
