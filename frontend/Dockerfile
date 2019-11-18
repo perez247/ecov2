@@ -21,7 +21,7 @@ RUN npm run prod
 FROM nginx:alpine
 
 # expose port
-EXPOSE 4201
+EXPOSE 4200
 
 # copy default.conf file
 COPY ./default.conf /etc/nginx/conf.d/default.conf
