@@ -18,7 +18,7 @@ namespace Infrastructure.Implementation.Email
             _logger = logger;
             _hostname = Environment.GetEnvironmentVariable("HOSTNAME");
 
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production" || Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Staging")
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
             {
                 _client = new SendGridClient(Environment.GetEnvironmentVariable("SENDGRID_APIKEY"));
             }
@@ -47,7 +47,7 @@ namespace Infrastructure.Implementation.Email
             {
                 msg.SetTemplateData(data);
                 var result = await _client.SendEmailAsync(msg);
-                // await WriteToFile(result.StatusCode.ToString());
+                await WriteToFile(result.StatusCode.ToString());
                 throw new CustomMessageException(result.StatusCode.ToString());
             } else {
                 // await WriteToFile(data.Url);
