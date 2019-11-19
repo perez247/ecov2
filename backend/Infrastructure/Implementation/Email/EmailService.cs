@@ -47,7 +47,7 @@ namespace Infrastructure.Implementation.Email
             {
                 msg.SetTemplateData(data);
                 var result = await _client.SendEmailAsync(msg);
-                // await WriteToFile(result.StatusCode.ToString());
+                await WriteToFile(result.StatusCode.ToString());
                 // throw new CustomMessageException(result.StatusCode.ToString());
             } else {
                 // await WriteToFile(data.Url);
@@ -61,7 +61,7 @@ namespace Infrastructure.Implementation.Email
             // Send Grid template for verify email
             string VerifyEmailTemplateId = "d-ba9d004d434d49bfa5f7b137210c548e";
 
-            var msg = EmailFunctions.GenerateMsg("noreply@newecopeople.com", "Fortheeco",VerifyEmailTemplateId, verifyEmailData.User.Email);
+            var msg = EmailFunctions.GenerateMsg("noreply@fortheeco.com", "Fortheeco",VerifyEmailTemplateId, verifyEmailData.User.Email);
             
             string token = WebUtility.UrlEncode(verifyEmailData.Token);
             string id = WebUtility.UrlEncode(verifyEmailData.User.Id.ToString());
@@ -78,7 +78,7 @@ namespace Infrastructure.Implementation.Email
         {
             var templateId = "d-dbaf10c1b0184df6af7d188f333bd863";
 
-            var msg = EmailFunctions.GenerateMsg("noreply@newecopeople.com", "Fortheeco", templateId, verifyEmailData.User.Email);
+            var msg = EmailFunctions.GenerateMsg("noreply@fortheeco.com", "Fortheeco", templateId, verifyEmailData.User.Email);
 
             string token = WebUtility.UrlEncode(verifyEmailData.Token);
             string id = WebUtility.UrlEncode(verifyEmailData.User.Id.ToString());
@@ -95,7 +95,7 @@ namespace Infrastructure.Implementation.Email
         {
             var templateId = "d-8dbe4d32d3c142ff97717ee4609073b9";
             
-            var msg = EmailFunctions.GenerateMsg("noreply@newecopeople.com", "Fortheeco", templateId, VerifyEmailData.User.Email);
+            var msg = EmailFunctions.GenerateMsg("noreply@fortheeco.com", "Fortheeco", templateId, VerifyEmailData.User.Email);
 
             string token = WebUtility.UrlEncode(VerifyEmailData.Token);
             string id = WebUtility.UrlEncode(VerifyEmailData.User.Id.ToString());
