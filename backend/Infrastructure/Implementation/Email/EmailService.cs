@@ -18,10 +18,10 @@ namespace Infrastructure.Implementation.Email
             _logger = logger;
             _hostname = Environment.GetEnvironmentVariable("HOSTNAME");
 
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
-            {
+            // if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
+            // {
                 _client = new SendGridClient(Environment.GetEnvironmentVariable("SENDGRID_APIKEY"));
-            }
+            // }
         }
         private readonly ILogger _logger;
         private readonly SendGridClient _client;
@@ -34,7 +34,7 @@ namespace Infrastructure.Implementation.Email
         }
 
         public async Task WriteToFile(string data) {
-            using (var writer = new StreamWriter(Path.GetFullPath("emailmessage.txt"), append: false))
+            using (var writer = new StreamWriter(("emailmessage.txt"), append: false))
             {
                 await writer.WriteLineAsync(data);
             }
