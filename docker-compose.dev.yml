@@ -31,7 +31,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - DefaultConnection=host=postgres_image;port=5432;database=app_db;username=root_user;password=root_password
-      - SENDGRID_APIKEY=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
     depends_on:
       - postgres_image
     ports:

@@ -10,7 +10,7 @@ services:
   backend:
     image: newecopeoplev1/backend_dev
     volumes:
-      - ../db/StagingDb.db:/app/StagingDb.db
+      - ./db/StagingDb.db:/app/StagingDb.db
     environment:
       - DefaultConnection=Filename=StagingDb.db
       - ASPNETCORE_ENVIRONMENT=Staging

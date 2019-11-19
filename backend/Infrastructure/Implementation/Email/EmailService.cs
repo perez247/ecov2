@@ -47,8 +47,8 @@ namespace Infrastructure.Implementation.Email
             {
                 msg.SetTemplateData(data);
                 var result = await _client.SendEmailAsync(msg);
-                await WriteToFile(result.StatusCode.ToString());
-                throw new CustomMessageException(result.StatusCode.ToString());
+                // await WriteToFile(result.StatusCode.ToString());
+                // throw new CustomMessageException(result.StatusCode.ToString());
             } else {
                 // await WriteToFile(data.Url);
                 throw new CustomMessageException(data.Url);
