@@ -51,7 +51,7 @@ frontend developers should use docker-compose.frontend.yml while backend develop
 
      or docker-compose.frontend.yml for frontend developers
      ```
-     docker-compose -f docker-compose.frontend.yml up --build
+     docker-compose -f docker-compose.frontend.yml up --build..
      ```
 
 
