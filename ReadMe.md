@@ -73,4 +73,4 @@ To view all the api documentation simple go to `localhost/api/docs` and it will 
 
 Happy Coding...
 
-Cheers Eco Team
+Cheers Eco Team.
