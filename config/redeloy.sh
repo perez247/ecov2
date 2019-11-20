@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "******************** Starting redeploy script ******************************"
-giturl="https://github.com/new-eco-people/EcoAppV1.git"
+giturl="https://github.com/perez247/ecov2.git"
 api_image="newecopeoplev1/backend_dev:latest"
 front_image="newecopeoplev1/frontend_dev:latest"
 
