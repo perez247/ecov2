@@ -10,7 +10,7 @@ jobs:
       before_install:
         - travis_wait 30
         - docker build -t newecopeoplev1/frontend_dev ./frontend
-        - docker build -t newecopeoplev1/backend_dev -f ./backend/Dockerfile.staging ./backend
+        - docker build -t newecopeoplev1/backend_dev ./backend
         - docker build -t newecopeoplev1/nginx_dev ./nginx
         - docker build -t newecopeoplev1/nginx_template_dev ./nginx_template
       install:

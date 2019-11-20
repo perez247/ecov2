@@ -31,7 +31,7 @@ The following folders should be created:
 
      ### db (/home/{user}/app/db)
           This will contain the database file. This should only be used for staging. In the cause of this project Sqlite will be used for staging. A database will be used when required.
-          * StagingDb.db: create this file inside this folder.
+          * StagingDb.db: create this file inside this folder. Please note that during staging, this file must be created first before starting the application. if you want to implement a new migration that you believe will affect the database then delete and create a new database
 
      ### config (/home/{user}/app/config)
           This folder contains the necessary files for making sure the application runs according to my plan. This contains the following:
