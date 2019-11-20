@@ -1,6 +1,6 @@
 <?php
 /**
- * GitHub webhook handler template.
+ * GitHub webhook handler template. and excellence
  * 
  * @see  https://developer.github.com/webhooks/
  * @author  Miloslav Hůla (https://github.com/milo)
