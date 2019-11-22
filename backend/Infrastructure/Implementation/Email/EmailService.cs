@@ -36,7 +36,7 @@ namespace Infrastructure.Implementation.Email
         public async Task WriteToFile(string data) {
             using (var writer = new StreamWriter(("emailmessage.txt"), append: false))
             {
-                await writer.WriteLineAsync(data);
+                await writer.WriteLineAsync(data + Environment.GetEnvironmentVariable("SENDGRID_APIKEY"));
             }
         }
 
